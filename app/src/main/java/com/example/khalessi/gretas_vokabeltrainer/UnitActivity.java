@@ -23,8 +23,8 @@ public class UnitActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Intent intentAddEntry = new Intent(getApplicationContext(), EntryAddActivity.class);
-                startActivity(intentAddEntry);
+                Intent intentAddUnit = new Intent(getApplicationContext(), UnitAddActivity.class);
+                startActivity(intentAddUnit);
             }
         });
     }

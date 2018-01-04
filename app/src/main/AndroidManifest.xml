@@ -23,7 +23,8 @@
         <activity
             android:name=".EntryAddActivity"
             android:label="@string/title_activity_entry_add"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".UnitAddActivity"></activity>
     </application>
 
 </manifest>

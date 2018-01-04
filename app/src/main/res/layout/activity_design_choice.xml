@@ -10,6 +10,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Gib deinen Namen ein."
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:textSize="30sp" />
+    <EditText
+        android:id="@+id/et_benutzerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_margin="30dp"
+        android:inputType="textPersonName"
+        android:text="Miau" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Wähle ein Design aus!"
         android:layout_gravity="center"
         android:layout_margin="30dp"
@@ -29,5 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Kätzchen" />
+
+
 
 </LinearLayout>
