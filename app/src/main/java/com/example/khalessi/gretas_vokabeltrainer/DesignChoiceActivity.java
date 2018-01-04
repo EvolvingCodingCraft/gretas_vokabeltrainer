@@ -23,5 +23,14 @@ public class DesignChoiceActivity extends AppCompatActivity {
                 startActivity(unitIntent);
             }
         });
+
+        Button btn_testListView = (Button) findViewById(R.id.btn_testListView);
+        btn_testListView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_testListView = new Intent(getApplicationContext(),UnitListActivity.class);
+                startActivity(intent_testListView);
+            }
+        });
     }
 }
