@@ -7,17 +7,17 @@
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/carName" />
+        android:id="@+id/tv_unitId" />
 
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/carColor" />
+        android:id="@+id/tv_description" />
 
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/carPlace" />
+        android:id="@+id/tv_userName" />
 </LinearLayout>

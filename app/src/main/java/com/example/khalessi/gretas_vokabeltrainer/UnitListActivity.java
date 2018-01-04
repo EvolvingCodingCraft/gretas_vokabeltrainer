@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class UnitListActivity extends AppCompatActivity {
 
 
-    MyCustomAdapter myCustomAdapter = null;
+    UnitCustomAdapter myCustomAdapter = null;
     ListView listView = null;
     DroidDatabaseHelper db = null;
     ArrayList<Units> cars = null;
@@ -27,7 +27,7 @@ public class UnitListActivity extends AppCompatActivity {
         db.recreateDatabase();
         db.insertSomeUnits();
         cars = db.getData();
-        myCustomAdapter = new MyCustomAdapter(this, R.layout.car_details, cars);
+        myCustomAdapter = new UnitCustomAdapter(this, R.layout.unit_details, cars);
 
         listView = (ListView) findViewById(R.id.simpleListView);
         listView.setAdapter(myCustomAdapter);

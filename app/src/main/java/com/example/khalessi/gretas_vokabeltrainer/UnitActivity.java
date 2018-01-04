@@ -7,8 +7,20 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ListView;
+
+import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.DroidDatabaseHelper;
+import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.Units;
+
+import java.util.ArrayList;
 
 public class UnitActivity extends AppCompatActivity {
+
+    UnitCustomAdapter myCustomAdapter = null;
+    ListView listView = null;
+    DroidDatabaseHelper db = null;
+    ArrayList<Units> cars = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +28,16 @@ public class UnitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_unit);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        db = new DroidDatabaseHelper(this);
+        db.recreateDatabase();
+        db.insertSomeUnits();
+        cars = db.getData();
+        myCustomAdapter = new UnitCustomAdapter(this, R.layout.unit_details, cars);
+
+        listView = (ListView) findViewById(R.id.lv_unitListView);
+        listView.setAdapter(myCustomAdapter);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

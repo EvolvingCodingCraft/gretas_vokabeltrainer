@@ -17,11 +17,11 @@ import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.Units;
 import java.util.ArrayList;
 
 
-public class MyCustomAdapter extends ArrayAdapter {
+public class UnitCustomAdapter extends ArrayAdapter {
     private Context context;
     private ArrayList<Units> car;
 
-    public MyCustomAdapter(Context context, int textViewResourceId, ArrayList objects) {
+    public UnitCustomAdapter(Context context, int textViewResourceId, ArrayList objects) {
         super(context, textViewResourceId, objects);
 
         this.context = context;
@@ -30,9 +30,9 @@ public class MyCustomAdapter extends ArrayAdapter {
     }
 
     private class ViewHolder {
-        TextView carName;
-        TextView carColor;
-        TextView carPlace;
+        TextView tv_benutzername;
+        TextView tv_unitId;
+        TextView tv_description;
     }
 
     @Override
@@ -40,12 +40,12 @@ public class MyCustomAdapter extends ArrayAdapter {
         ViewHolder holder = null;
         if (convertView == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = vi.inflate(R.layout.car_details, null);
+            convertView = vi.inflate(R.layout.unit_details, null);
 
             holder = new ViewHolder();
-            holder.carColor = (TextView) convertView.findViewById(R.id.carColor);
-            holder.carName = (TextView) convertView.findViewById(R.id.carName);
-            holder.carPlace = (TextView) convertView.findViewById(R.id.carPlace);
+            holder.tv_unitId = (TextView) convertView.findViewById(R.id.tv_unitId);
+            holder.tv_benutzername = (TextView) convertView.findViewById(R.id.tv_userName);
+            holder.tv_description = (TextView) convertView.findViewById(R.id.tv_description);
             convertView.setTag(holder);
 
         } else {
@@ -53,9 +53,9 @@ public class MyCustomAdapter extends ArrayAdapter {
         }
 
         Units individualCar = car.get(position);
-        holder.carPlace.setText("Car Place: " + individualCar.getDescription() + "");
-        holder.carName.setText("Car Name: " + individualCar.getUser() + "");
-        holder.carColor.setText("Car Color: " + individualCar.getUnitId());
+        holder.tv_description.setText(context.getString(R.string.listview_unitname) + individualCar.getDescription() + "");
+        holder.tv_benutzername.setText(context.getString(R.string.listview_username) + individualCar.getUser() + "");
+        holder.tv_unitId.setText(context.getString(R.string.listview_unitId) + individualCar.getUnitId());
         return convertView;
 
 

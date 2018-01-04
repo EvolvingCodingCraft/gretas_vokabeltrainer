@@ -5,13 +5,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+
+import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.DroidDatabaseHelper;
+import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.Units;
+
+import java.util.ArrayList;
 
 public class UnitAddActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_unit);
+
 
         Button btn_speichern = (Button) findViewById(R.id.btn_addEntrySubmit);
         btn_speichern.setOnClickListener(new View.OnClickListener() {

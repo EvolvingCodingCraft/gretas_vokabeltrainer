@@ -17,7 +17,7 @@ public class DroidDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "DB_Units.db";
     public static final String UNITS_TABLE_NAME = "UnitNumber";
-    public static final String CARS_COLUMN_ID = "id";
+    // public static final String CARS_COLUMN_ID = "id";
     public static final String UNITS_COLUMN_USER = "c_user";
     public static final String UNITS_COLUMN_UNIT_ID = "c_unitId";
     public static final String UNITS_COLUMN_DESCRIPTION = "c_description";
@@ -50,11 +50,11 @@ public class DroidDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertUnit(int number, String unitId, String description) {
+    public boolean insertUnit(String unitId, String user, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("c_user", number);
+        contentValues.put("c_user", user);
         contentValues.put("c_unitId", unitId);
         contentValues.put("c_description", description);
 
@@ -75,13 +75,13 @@ public class DroidDatabaseHelper extends SQLiteOpenHelper {
         return car;
     }
 
-    public boolean updateUnit(int id, int number, int color, int place) {
+    public boolean updateUnit(int id, String user, String unitId, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("c_user", number);
-        contentValues.put("c_unitId", color);
-        contentValues.put("c_description", place);
+        contentValues.put("c_user", user);
+        contentValues.put("c_unitId", unitId);
+        contentValues.put("c_description", description);
 
         db.update(UNITS_TABLE_NAME, contentValues, "id = ? ", new String[]{Integer.toString(id)});
         return true;
@@ -96,12 +96,12 @@ public class DroidDatabaseHelper extends SQLiteOpenHelper {
 
     public void insertSomeUnits() {
 
-        insertUnit(1, UnitIdGenerator.generate(), "Honda Civic");
-        insertUnit(2, UnitIdGenerator.generate(), "Rolls Royce");
-        insertUnit(3, UnitIdGenerator.generate(), "Honda Civic");
-        insertUnit(4, UnitIdGenerator.generate(), "Nissan Patrol <3");
-        insertUnit(5, UnitIdGenerator.generate(), "Tiida");
-        insertUnit(6, UnitIdGenerator.generate(), "Rolls Royce");
+        insertUnit(UnitIdGenerator.generate(), "greta", "Honda Civic");
+        insertUnit(UnitIdGenerator.generate(), "greta", "Rolls Royce");
+        insertUnit(UnitIdGenerator.generate(), "greta", "Honda Civic");
+        insertUnit(UnitIdGenerator.generate(), "greta", "Nissan Patrol <3");
+        insertUnit(UnitIdGenerator.generate(), "greta", "Tiida");
+        insertUnit(UnitIdGenerator.generate(), "greta", "Rolls Royce");
 
     }
 

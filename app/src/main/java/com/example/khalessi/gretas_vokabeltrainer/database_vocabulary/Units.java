@@ -10,10 +10,10 @@ public class Units {
     String unitId;
     String description;
 
-    public Units(String color, String name, String place) {
-        this.unitId = color;
-        this.user = name;
-        this.description = place;
+    public Units(String unitId, String user, String description) {
+        this.unitId = unitId;
+        this.user = user;
+        this.description = description;
     }
 
     public String getUnitId() {
