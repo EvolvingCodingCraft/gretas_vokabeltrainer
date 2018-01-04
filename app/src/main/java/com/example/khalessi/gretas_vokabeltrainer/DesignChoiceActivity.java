@@ -24,6 +24,7 @@ public class DesignChoiceActivity extends AppCompatActivity {
             }
         });
 
+        // TODO kann später weg, nur zu Testzwecken
         Button btn_testListView = (Button) findViewById(R.id.btn_testListView);
         btn_testListView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,5 +33,28 @@ public class DesignChoiceActivity extends AppCompatActivity {
                 startActivity(intent_testListView);
             }
         });
+
+
+
+        // TODO Datenbank für Vokabeln anlegen (Kopie von Unit und anpassen)
+        // TODO setzten dynamisch Hintergrundbild per Java
+        // TODO Gestalterisch: app theme entwickeln
+        // TODO Vokabeln übersetzen
+        // TODO Styles entwickeln
+        // TODO Dokumentationskommentare einfügen
+        // TODO Impressum Activity entwickeln
+        // TODO Eintragen von Vokabeln in die Datenbank
+        // TODO Entragen von Units in die Datenbank
+        // TODO Angabe des Benutzernamens
+        // TODO Systemweite Speicherung der aktuellen Daten in einem Singleton
+        // TODO Übungsmodi generieren
+        // TODO Statistiken programmieren (weit weg)
+        // TODO ListView clickbar machen -> Unit auswählen und dann Vokabeln hinzufügen können
+        // TODO Bilder und Übersetzungen anfertigen
+        // TODO Entwicklungsnotizen starten !!!!
+
+
+
+
     }
 }

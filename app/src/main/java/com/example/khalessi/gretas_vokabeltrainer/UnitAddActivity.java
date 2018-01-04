@@ -5,12 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-
-import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.DroidDatabaseHelper;
-import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.Units;
-
-import java.util.ArrayList;
 
 public class UnitAddActivity extends AppCompatActivity {
 

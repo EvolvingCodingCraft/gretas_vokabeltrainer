@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
 
-import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.DroidDatabaseHelper;
+import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.UnitDatabaseHelper;
 import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.Units;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class UnitActivity extends AppCompatActivity {
 
     UnitCustomAdapter myCustomAdapter = null;
     ListView listView = null;
-    DroidDatabaseHelper db = null;
+    UnitDatabaseHelper db = null;
     ArrayList<Units> cars = null;
 
 
@@ -29,7 +29,7 @@ public class UnitActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        db = new DroidDatabaseHelper(this);
+        db = new UnitDatabaseHelper(this);
         db.recreateDatabase();
         db.insertSomeUnits();
         cars = db.getData();

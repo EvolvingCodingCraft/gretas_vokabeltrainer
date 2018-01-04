@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-public class DroidDatabaseHelper extends SQLiteOpenHelper {
+public class UnitDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "DB_Units.db";
     public static final String UNITS_TABLE_NAME = "UnitNumber";
@@ -22,7 +22,7 @@ public class DroidDatabaseHelper extends SQLiteOpenHelper {
     public static final String UNITS_COLUMN_UNIT_ID = "c_unitId";
     public static final String UNITS_COLUMN_DESCRIPTION = "c_description";
 
-    public DroidDatabaseHelper(Context context) {
+    public UnitDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 

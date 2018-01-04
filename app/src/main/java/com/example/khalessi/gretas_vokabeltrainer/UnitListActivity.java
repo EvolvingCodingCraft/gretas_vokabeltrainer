@@ -5,16 +5,17 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.Units;
-import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.DroidDatabaseHelper;
+import com.example.khalessi.gretas_vokabeltrainer.database_vocabulary.UnitDatabaseHelper;
 
 import java.util.ArrayList;
 
 public class UnitListActivity extends AppCompatActivity {
 
+    // TODO diese klasse kann später weg, war nur zu Testzwecken drin
 
     UnitCustomAdapter myCustomAdapter = null;
     ListView listView = null;
-    DroidDatabaseHelper db = null;
+    UnitDatabaseHelper db = null;
     ArrayList<Units> cars = null;
 
     @Override
@@ -23,7 +24,7 @@ public class UnitListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_unit_list);
 
 
-        db = new DroidDatabaseHelper(this);
+        db = new UnitDatabaseHelper(this);
         db.recreateDatabase();
         db.insertSomeUnits();
         cars = db.getData();
