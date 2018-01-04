@@ -51,7 +51,7 @@ public class DesignChoiceActivity extends AppCompatActivity {
         // TODO Statistiken programmieren (weit weg)
         // TODO ListView clickbar machen -> Unit auswählen und dann Vokabeln hinzufügen können
         // TODO Bilder und Übersetzungen anfertigen
-        // TODO Entwicklungsnotizen starten !!!!
+        // TODO Entwicklungsnotizen starten (in Google Docs) !!!
 
 
 
