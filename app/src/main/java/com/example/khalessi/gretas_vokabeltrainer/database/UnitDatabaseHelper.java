@@ -161,11 +161,11 @@ public class UnitDatabaseHelper extends SQLiteOpenHelper {
 
     public void insertSomeUnits() {
         insertUnit(UnitIdGenerator.generate(), "Greta", "In the living room", "Watching TV is fun!");
-        insertUnit(UnitIdGenerator.generate(), "Greta", "Going to school", "This is less :)");
-        insertUnit(UnitIdGenerator.generate(), "Greta", "Having a party", "Not yet, my dear.");
+        insertUnit(UnitIdGenerator.generate(), "Greta", "Going to school", "School");
+        insertUnit(UnitIdGenerator.generate(), "Greta", "Having a party", "Party");
         insertUnit(UnitIdGenerator.generate(), "Greta", "Melting chocolate", "Smells good.");
         insertUnit(UnitIdGenerator.generate(), "Greta", "Making a torch", "You light up my life.");
-        insertUnit(UnitIdGenerator.generate(), "Greta", "Kitchen cleaning", "Help me, supermom.");
+        insertUnit(UnitIdGenerator.generate(), "Greta", "Kitchen cleaning", "Kitchen");
 
     }
 
