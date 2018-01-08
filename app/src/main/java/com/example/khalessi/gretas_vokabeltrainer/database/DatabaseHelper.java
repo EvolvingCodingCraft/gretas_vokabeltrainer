@@ -17,7 +17,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "DB_Units.db";
 
-    //table Units
+
+    // table units
     public static final String UNITS_TABLE_NAME = "UnitTable";
     public static final String UNITS_COLUMN_ID = "_id";
     public static final String UNITS_COLUMN_UNIT_ID = "c_unitId";
@@ -25,13 +26,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String UNITS_COLUMN_TITLE = "c_title";
     public static final String UNITS_COLUMN_DESCRIPTION = "c_description";
 
-
-    //table vocabulary
+    // table vocabulary
     public static final String VOCABULARY_TABLE_NAME = "VocTable";
     public static final String VOCABULARY_COLUMN_ID = "_id";
     public static final String VOCABULARY_COLUMN_UNIT_ID = "c_unitId";
-    public static final String VOCABULARY_COLUMN_FOREIGNLANG = "c_foreign";
-    public static final String VOCABULARY_COLUMN_NATIVELANG = "c_native";
+    public static final String VOCABULARY_COLUMN_FOREIGN_LANG = "c_foreign";
+    public static final String VOCABULARY_COLUMN_NATIVE_LANG = "c_native";
     public static final String VOCABULARY_COLUMN_DESCRIPTION = "c_description";
 
     public DatabaseHelper(Context context) {
@@ -45,15 +45,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void setupVocTable(SQLiteDatabase db) {
+        //TODO drop table entfernen... später
         db.execSQL("DROP TABLE IF EXISTS " + VOCABULARY_TABLE_NAME);
         db.execSQL("create table  " + VOCABULARY_TABLE_NAME +
                 "(" + VOCABULARY_COLUMN_ID + " integer primary key AUTOINCREMENT NOT NULL,"
                 + VOCABULARY_COLUMN_UNIT_ID + " Text,"
-                + VOCABULARY_COLUMN_FOREIGNLANG + " Text,"
-                + VOCABULARY_COLUMN_NATIVELANG + " Text,"
+                + VOCABULARY_COLUMN_FOREIGN_LANG + " Text,"
+                + VOCABULARY_COLUMN_NATIVE_LANG + " Text,"
                 + VOCABULARY_COLUMN_DESCRIPTION + " Text)"
         );
-
     }
 
     private void setupUnitsTable(SQLiteDatabase db) {
@@ -99,9 +99,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(UNITS_TABLE_NAME, null, contentValues);
         return true;
     }
-
-
-
 
     public ArrayList<Unit> getUnitsData() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -187,12 +184,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void insertSomeUnits() {
+        insertUnit("livingRoom", "Greta", "In the living room", "On top of the world.");
+
         insertUnit(UnitIdGenerator.generate(), "Greta", "In the living room", "Watching TV is fun!");
-        insertUnit(UnitIdGenerator.generate(), "Greta", "Going to school", "School");
-        insertUnit(UnitIdGenerator.generate(), "Greta", "Having a party", "Party");
+        insertUnit(UnitIdGenerator.generate(), "Greta", "Going to school", "This is less :)");
+        insertUnit(UnitIdGenerator.generate(), "Greta", "Having a party", "Not yet, my dear.");
         insertUnit(UnitIdGenerator.generate(), "Greta", "Melting chocolate", "Smells good.");
         insertUnit(UnitIdGenerator.generate(), "Greta", "Making a torch", "You light up my life.");
-        insertUnit(UnitIdGenerator.generate(), "Greta", "Kitchen cleaning", "Kitchen");
+        insertUnit(UnitIdGenerator.generate(), "Greta", "Kitchen cleaning", "Help me, supermom.");
 
     }
 
@@ -210,13 +209,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // CRUD Operationen für Vokabeln ANFANG
     //*****************************************************
 
+
     public boolean insertVocabulary(String unitId, String foreignLang, String nativeLang, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(VOCABULARY_COLUMN_UNIT_ID, unitId);
-        contentValues.put(VOCABULARY_COLUMN_FOREIGNLANG, foreignLang);
-        contentValues.put(VOCABULARY_COLUMN_NATIVELANG, nativeLang);
+        contentValues.put(VOCABULARY_COLUMN_FOREIGN_LANG, foreignLang);
+        contentValues.put(VOCABULARY_COLUMN_NATIVE_LANG, nativeLang);
         contentValues.put(VOCABULARY_COLUMN_DESCRIPTION, description);
 
         db.insert(VOCABULARY_TABLE_NAME, null, contentValues);
@@ -225,34 +225,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<VocabularyItem> getVocabularyData() {
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<VocabularyItem> vocList = new ArrayList<VocabularyItem>();
+        ArrayList<VocabularyItem> voclist = new ArrayList<VocabularyItem>();
+
         Cursor result = db.rawQuery("select * from " + VOCABULARY_TABLE_NAME, null);
 
         while (result.moveToNext()) {
-            vocList.add(new VocabularyItem(
+            voclist.add(new VocabularyItem(
                             Integer.parseInt(result.getString(result.getColumnIndex(VOCABULARY_COLUMN_ID))),
-                            result.getString(result.getColumnIndex(VOCABULARY_COLUMN_FOREIGNLANG)),
-                            result.getString(result.getColumnIndex(VOCABULARY_COLUMN_NATIVELANG)),
+                            result.getString(result.getColumnIndex(VOCABULARY_COLUMN_FOREIGN_LANG)),
+                            result.getString(result.getColumnIndex(VOCABULARY_COLUMN_NATIVE_LANG)),
                             result.getString(result.getColumnIndex(VOCABULARY_COLUMN_DESCRIPTION)),
                             result.getString(result.getColumnIndex(VOCABULARY_COLUMN_UNIT_ID))
-
                     )
-                    //)
             );
-
         }
 
-        return vocList;
+        return voclist;
+    }
+
+    public ArrayList<VocabularyItem> getVocabularyData(String unitId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<VocabularyItem> voclist = new ArrayList<VocabularyItem>();
+
+        String[] columns = {
+                VOCABULARY_COLUMN_ID,
+                VOCABULARY_COLUMN_FOREIGN_LANG,
+                VOCABULARY_COLUMN_NATIVE_LANG,
+                VOCABULARY_COLUMN_DESCRIPTION,
+                VOCABULARY_COLUMN_UNIT_ID
+        };
+
+        String pattern = UNITS_COLUMN_UNIT_ID + "=?";
+
+        String[] values = {
+                unitId
+        };
+
+        Cursor result = db.query(VOCABULARY_TABLE_NAME,
+                columns, pattern, values,
+                null, null, null, null
+        );
+
+        while (result.moveToNext()) {
+            voclist.add(new VocabularyItem(
+                    Integer.parseInt(result.getString(0)),
+                    result.getString(1),
+                    result.getString(2),
+                    result.getString(3),
+                    result.getString(4))
+            );
+        }
+
+        return voclist;
     }
 
     public void insertSomeVocs() {
+        insertVocabulary(UnitIdGenerator.generate(), "to learn", "lernen", "verb, inifinitiv");
+        insertVocabulary(UnitIdGenerator.generate(), "to run", "laufen", "verb, inifinitiv");
+        insertVocabulary(UnitIdGenerator.generate(), "to hide", "verstecken", "verb, inifinitiv");
+        insertVocabulary(UnitIdGenerator.generate(), "to seek", "suchen", "verb, inifinitiv");
+        insertVocabulary(UnitIdGenerator.generate(), "to watch", "schauen", "verb, inifinitiv");
+        insertVocabulary(UnitIdGenerator.generate(), "to ring", "klingeln", "verb, inifinitiv");
 
-        insertVocabulary(UnitIdGenerator.generate(), "to learn", "lernen", "Verb");
-        insertVocabulary(UnitIdGenerator.generate(), "to run", "laufen", "Verb");
-        insertVocabulary(UnitIdGenerator.generate(), "to hide", "verstecken", "Verb");
-        insertVocabulary(UnitIdGenerator.generate(), "to ring", "anrufen", "Verb");
-        insertVocabulary(UnitIdGenerator.generate(), "to search", "suchen", "Verb");
+        insertVocabulary("livingRoom", "to rise", "aufsteigen", "verb, inifinitiv");
+        insertVocabulary("livingRoom", "to fall", "fallen", "verb, inifinitiv");
+        insertVocabulary("livingRoom", "to sing", "singen", "verb, inifinitiv");
+        insertVocabulary("livingRoom", "to think", "denken", "verb, inifinitiv");
     }
+
+
     //*****************************************************
     // CRUD Operationen für Vokabeln ENDE
     //*****************************************************
