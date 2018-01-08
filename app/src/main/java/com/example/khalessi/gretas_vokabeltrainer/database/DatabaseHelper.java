@@ -214,7 +214,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(VOCABULARY_COLUMN_ID, unitId);
+        contentValues.put(VOCABULARY_COLUMN_UNIT_ID, unitId);
         contentValues.put(VOCABULARY_COLUMN_FOREIGNLANG, foreignLang);
         contentValues.put(VOCABULARY_COLUMN_NATIVELANG, nativeLang);
         contentValues.put(VOCABULARY_COLUMN_DESCRIPTION, description);
@@ -243,6 +243,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return vocList;
+    }
+
+    public void insertSomeVocs() {
+
+        insertVocabulary(UnitIdGenerator.generate(), "to learn", "lernen", "Verb");
+        insertVocabulary(UnitIdGenerator.generate(), "to run", "laufen", "Verb");
+        insertVocabulary(UnitIdGenerator.generate(), "to hide", "verstecken", "Verb");
+        insertVocabulary(UnitIdGenerator.generate(), "to ring", "anrufen", "Verb");
+        insertVocabulary(UnitIdGenerator.generate(), "to search", "suchen", "Verb");
     }
     //*****************************************************
     // CRUD Operationen für Vokabeln ENDE

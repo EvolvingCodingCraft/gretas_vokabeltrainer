@@ -38,19 +38,18 @@ public class DesignChoiceActivity extends AppCompatActivity {
         });
 
         // TODO kann später weg, nur zu Testzwecken
-        /**
+
          Button btn_testListView = (Button) findViewById(R.id.btn_testListView);
          btn_testListView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
 
-        Intent intent_testListView = new Intent(getApplicationContext(), UnitListActivity.class);
+        Intent intent_testListView = new Intent(getApplicationContext(), VocListActivity.class);
         startActivity(intent_testListView);
 
         }
         });
-         **/
 
 
 
