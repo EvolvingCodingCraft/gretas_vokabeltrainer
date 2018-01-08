@@ -5,34 +5,53 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.khalessi.gretas_vokabeltrainer.database.UnitDatabaseHelper;
+import com.example.khalessi.gretas_vokabeltrainer.state.AppState;
 
 public class DesignChoiceActivity extends AppCompatActivity {
-
-    Button btn_katzenDesign;
+    private Button btn_katzenDesign;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design_choice);
 
+        // setup the database
+        AppState.getInstance().setDatabaseHelper(new UnitDatabaseHelper(this));
+
         btn_katzenDesign = (Button) findViewById(R.id.btn_katzenDesign);
         btn_katzenDesign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // holt Name aus dem EditText Field
+                EditText et_benutzerName = (EditText)findViewById(R.id.et_benutzerName);
+                String currentUserName = et_benutzerName.getText().toString();
+                AppState.getInstance().setCurrentUserName(currentUserName);
+
+
                 Intent unitIntent = new Intent(getApplicationContext(), UnitActivity.class);
                 startActivity(unitIntent);
             }
         });
 
         // TODO kann später weg, nur zu Testzwecken
-        Button btn_testListView = (Button) findViewById(R.id.btn_testListView);
-        btn_testListView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_testListView = new Intent(getApplicationContext(),UnitListActivity.class);
-                startActivity(intent_testListView);
-            }
+        /**
+         Button btn_testListView = (Button) findViewById(R.id.btn_testListView);
+         btn_testListView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+
+        Intent intent_testListView = new Intent(getApplicationContext(), UnitListActivity.class);
+        startActivity(intent_testListView);
+
+        }
         });
+         **/
 
 
 
@@ -44,7 +63,7 @@ public class DesignChoiceActivity extends AppCompatActivity {
         // TODO Dokumentationskommentare einfügen
         // TODO Impressum Activity entwickeln
         // TODO Eintragen von Vokabeln in die Datenbank
-        // TODO Entragen von Units in die Datenbank
+        // TODO Entragen von Unit in die Datenbank
         // TODO Angabe des Benutzernamens
         // TODO Systemweite Speicherung der aktuellen Daten in einem Singleton
         // TODO Übungsmodi generieren
