@@ -17,12 +17,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "DB_Units.db";
 
-    public static final String UNITS_TABLE_NAME = "UnitNumber";
+    //table Units
+    public static final String UNITS_TABLE_NAME = "UnitTable";
     public static final String UNITS_COLUMN_ID = "_id";
     public static final String UNITS_COLUMN_UNIT_ID = "c_unitId";
     public static final String UNITS_COLUMN_USER = "c_user";
     public static final String UNITS_COLUMN_TITLE = "c_title";
     public static final String UNITS_COLUMN_DESCRIPTION = "c_description";
+
+
+    //table vocabulary
+    public static final String VOCABULARY_TABLE_NAME = "VocTable";
+    public static final String VOCABULARY_COLUMN_ID = "_id";
+    public static final String VOCABULARY_COLUMN_UNIT_ID = "c_unitId";
+    public static final String VOCABULARY_COLUMN_FOREIGNLANG = "c_foreign";
+    public static final String VOCABULARY_COLUMN_NATIVELANG = "c_native";
+    public static final String VOCABULARY_COLUMN_DESCRIPTION = "c_description";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -31,7 +41,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         setupUnitsTable(db);
-        // TODO hier muss das Setup der Vokabel Tabelle hin
+        setupVocTable(db);
+    }
+
+    private void setupVocTable(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + VOCABULARY_TABLE_NAME);
+        db.execSQL("create table  " + VOCABULARY_TABLE_NAME +
+                "(" + VOCABULARY_COLUMN_ID + " integer primary key AUTOINCREMENT NOT NULL,"
+                + VOCABULARY_COLUMN_UNIT_ID + " Text,"
+                + VOCABULARY_COLUMN_FOREIGNLANG + " Text,"
+                + VOCABULARY_COLUMN_NATIVELANG + " Text,"
+                + VOCABULARY_COLUMN_DESCRIPTION + " Text)"
+        );
+
     }
 
     private void setupUnitsTable(SQLiteDatabase db) {
@@ -49,12 +71,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + UNITS_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + VOCABULARY_TABLE_NAME);
         onCreate(db);
     }
 
     public void recreateDatabase() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + UNITS_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + VOCABULARY_TABLE_NAME);
         onCreate(db);
     }
 
@@ -75,6 +99,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(UNITS_TABLE_NAME, null, contentValues);
         return true;
     }
+
+
+
 
     public ArrayList<Unit> getUnitsData() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -183,8 +210,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // CRUD Operationen für Vokabeln ANFANG
     //*****************************************************
 
-    // TODO hier müssen die CRUD Operation für die Vokabel Tabelle hin
+    public boolean insertVocabulary(String unitId, String foreignLang, String nativeLang, String description) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(VOCABULARY_COLUMN_ID, unitId);
+        contentValues.put(VOCABULARY_COLUMN_FOREIGNLANG, foreignLang);
+        contentValues.put(VOCABULARY_COLUMN_NATIVELANG, nativeLang);
+        contentValues.put(VOCABULARY_COLUMN_DESCRIPTION, description);
+
+        db.insert(VOCABULARY_TABLE_NAME, null, contentValues);
+        return true;
+    }
+
+    public ArrayList<VocabularyItem> getVocabularyData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<VocabularyItem> vocList = new ArrayList<VocabularyItem>();
+        Cursor result = db.rawQuery("select * from " + VOCABULARY_TABLE_NAME, null);
+
+        while (result.moveToNext()) {
+            vocList.add(new VocabularyItem(
+                            Integer.parseInt(result.getString(result.getColumnIndex(VOCABULARY_COLUMN_ID))),
+                            result.getString(result.getColumnIndex(VOCABULARY_COLUMN_FOREIGNLANG)),
+                            result.getString(result.getColumnIndex(VOCABULARY_COLUMN_NATIVELANG)),
+                            result.getString(result.getColumnIndex(VOCABULARY_COLUMN_DESCRIPTION)),
+                            result.getString(result.getColumnIndex(VOCABULARY_COLUMN_UNIT_ID))
+
+                    )
+                    //)
+            );
+
+        }
+
+        return vocList;
+    }
     //*****************************************************
     // CRUD Operationen für Vokabeln ENDE
     //*****************************************************
